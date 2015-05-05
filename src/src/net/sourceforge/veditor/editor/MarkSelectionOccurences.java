@@ -48,11 +48,13 @@ public class MarkSelectionOccurences implements ISelectionChangedListener {
 		lastModel = model;
 		
 		if (selection instanceof TextSelection) { 
+			// ToDo: It should consider variable scope and read or write.
 			TextSelection textSelection = (TextSelection)selection;
 			if ((textSelection.getLength() > 1) &&
 					(VerilogPlugin.getPreferenceBoolean( PreferenceStrings.MARK_SELECTION_OCCURENCES ))) { // skip single character selections
 				String text = fEditor.getViewer().getDocument().get();
 				String selText = textSelection.getText();
+				int length = selText.length();
 				ArrayList<Integer> findList = new ArrayList<Integer>();
 				
 				// search for all occurences and annotate them
@@ -60,9 +62,10 @@ public class MarkSelectionOccurences implements ISelectionChangedListener {
 				do {
 					lastIndex = text.indexOf(selText,lastIndex);
 					if( lastIndex != -1){
-						findList.add(lastIndex);
-						lastIndex+=selText.length();
-						
+						if (isIdentifier(text, length, lastIndex)) {
+							findList.add(lastIndex);
+						}
+						lastIndex+=length;
 						// stop on too much hits
 						if (findList.size() >= maxHits) {
 							break;
@@ -82,4 +85,27 @@ public class MarkSelectionOccurences implements ISelectionChangedListener {
 		}
 	}
 
+	/**
+	 * test identifier.
+	 * note: occurrence must be identifier
+	 */
+	private boolean isIdentifier(String text, int length, int index) {
+		try {
+			char prev = text.charAt(index - 1);
+			char next = text.charAt(index + length);
+			for (int i = 0; i < length; i++) {
+				if (Character.isJavaIdentifierPart(text.charAt(index + i)) == false) {
+					return false;
+				}
+			}
+			// avoid part of other identifier
+			if (Character.isJavaIdentifierPart(prev))
+				return false;
+			if (Character.isJavaIdentifierPart(next))
+				return false;
+			return true;
+		} catch (IndexOutOfBoundsException e) {
+			return false;
+		}
+	}
 }
