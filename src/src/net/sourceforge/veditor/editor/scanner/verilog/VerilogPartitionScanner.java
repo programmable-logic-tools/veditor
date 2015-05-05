@@ -29,7 +29,7 @@ public class VerilogPartitionScanner extends HdlPartitionScanner {
         // doxygen comment
         rules.add(new EndOfLineRule("///", doxygenSingleLineCommentToken));
         rules.add(new EndOfLineRule("//@", doxygenSingleLineCommentToken));
-        rules.add(new MultiLineRule("/**", "*/", doxygenMultiLineCommentToken, '\0', true));
+        rules.add(new MultiLineRule("/**", "*/", doxygenMultiLineCommentToken));
 
         // single line comments.
         rules.add(new EndOfLineRule("//", singleLineCommentToken));
@@ -42,7 +42,7 @@ public class VerilogPartitionScanner extends HdlPartitionScanner {
         rules.add(wordRule);
 
         // multi-line comments
-        rules.add(new MultiLineRule("/*", "*/", multiLineCommentToken, '\0', true));
+        rules.add(new MultiLineRule("/*", "*/", multiLineCommentToken));
 
         IPredicateRule[] result = new IPredicateRule[rules.size()];
         rules.toArray(result);

@@ -59,6 +59,7 @@ public interface PreferenceStrings {
    public static final String ALIGNONARROWRIGHT="Style.Vhdl.AlignOnArrowRight";
    public static final String ALIGNONARROWLEFT="Style.Vhdl.AlignOnArrowLeft";
    public static final String ALIGNONCOLON="Style.Vhdl.AlignOnColon";
+   public static final String ALIGNONTAB="Style.Vhdl.AlignOnTab";
    //mg
    public static final String	ALIGNONASSIGNMENT= "Style.Vhdl.AlingOnAssignment";
    public static final String	ALIGNONCOMMENT= "Style.Vhdl.AlignOnComment";
@@ -80,6 +81,7 @@ public interface PreferenceStrings {
    public static final String SORT_OUTLINE = "Outline.Sort";
    public static final String FILTER_SINGALS_IN_OUTLINE="Outline.FilterSignals";
    public static final String FILTER_PORTS_IN_OUTLINE="Outline.FilterPorts";
+   public static final String MARK_SELECTION_OCCURENCES="Editor.MarkSelectionOccurences";
    public static final String SAVE_BEFORE_COMPILE="Compile.SaveBeforeCompile";
    public static final String COMPILE_COMMAND="Compile.command";
    public static final String SYNTH_COMMAND="Synthesize.command";
