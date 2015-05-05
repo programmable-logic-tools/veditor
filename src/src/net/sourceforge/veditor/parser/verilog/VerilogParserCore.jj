@@ -103,7 +103,7 @@ SKIP :
 
 MORE :
 {
-      < ("//")* ("`")* (" " | "\t")* "pragma" (" " | "\t")+ "protect" (" " | "\t")+ "begin_protected" (~["\n"])*> : IN_PROTECTED
+      < ("//" | "`") (" " | "\t")* "pragma" (" " | "\t")+ "protect" (" " | "\t")+ "begin_protected" (~["\n"])*> : IN_PROTECTED
 }
 
 <IN_PROTECTED>
