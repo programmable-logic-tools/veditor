@@ -425,6 +425,9 @@ public class VerilogParser extends VerilogParserCore implements IParser, Prefere
 			Expression arg3) {
 		Operator ope = new Operator(op.image);
 		Expression ret = ope.operate(arg1, arg2, arg3);
+		ret.addReference(arg1);
+		ret.addReference(arg2);
+		ret.addReference(arg3);
 		if (ope.isWarning())
 			warning(op.beginLine, ope.getWarning());
 		return ret;
@@ -671,6 +674,7 @@ public class VerilogParser extends VerilogParserCore implements IParser, Prefere
 			VerilogPlugin.deleteMarkers(m_File);
 			preferences.updatePreferences();
 			Expression.setPreferences(preferences);
+			Operator.setPreferences(preferences);
 		}
 		try
 		{
