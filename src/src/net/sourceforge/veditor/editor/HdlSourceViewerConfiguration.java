@@ -322,9 +322,7 @@ abstract public class HdlSourceViewerConfiguration extends
 						results=results.replaceAll("\n","\n"+commentString+" ");
 						results+="\n";
 					}
-					// ULTRANO
-					//results+=element.getLongName()+"\n";
-					results+=element.getFullSourceCode();
+					results+=element.getHoverInfo();
 				}
 			} else {
 				VhdlOutlineElement component1 = (VhdlOutlineElement) component;
