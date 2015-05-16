@@ -31,6 +31,8 @@ import net.sourceforge.veditor.parser.vhdl.VhdlOutlineElementFactory.VhdlOutline
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.DocumentCommand;
+import org.eclipse.jface.text.IAutoEditStrategy;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextHover;
@@ -57,20 +59,69 @@ abstract public class HdlSourceViewerConfiguration extends
 	private HdlScanner scanner;
 	private HdlEditor m_Editor;
 	
-	public static HdlSourceViewerConfiguration createForVerilog(HdlEditor editor)
-	{
-		return new HdlSourceViewerConfiguration(editor)
-		{
-			public HdlScanner createScanner()
-			{
+
+	private static class VerilogAutoEditStrategy implements IAutoEditStrategy {
+		public void customizeDocumentCommand(IDocument doc, DocumentCommand com) {
+			try {
+				if (com.text.equals("\n")) {
+					int line = doc.getLineOfOffset(com.offset);
+					int ref = doc.getLineOffset(line);
+					StringBuffer str = new StringBuffer();
+					boolean done = false;
+					do {
+						char c = doc.getChar(ref++);
+						switch (c) {
+						case '\t':
+						case ' ':
+							str.append(c);
+							break;
+						case '/':
+							if (doc.getChar(ref) == '*') {
+								str.append(" * ");
+							}
+							done = true;
+							break;
+						case '*':
+							str.append(c);
+							str.append(' ');
+							done = true;
+							break;
+						default:
+							done = true;
+						}
+					} while (done == false);
+					com.text = "\n" + str.toString();
+				}
+				if (com.text.equals("/")) {
+					// check closing multi-line comment
+					if (doc.get(com.offset - 2, 2).equals("* ")) {
+						com.offset -= 1;
+						com.length = 1;
+					}
+				}
+			} catch (BadLocationException e) {
+				// OK as default operation
+			}
+		}
+	}
+
+	public static HdlSourceViewerConfiguration createForVerilog(HdlEditor editor) {
+		return new HdlSourceViewerConfiguration(editor) {
+			public HdlScanner createScanner() {
 				return HdlScanner.createForVerilog(getColorManager());
 			}
-			public HdlCompletionProcessor createCompletionProcessor()
-			{
+
+			public HdlCompletionProcessor createCompletionProcessor() {
 				return new VerilogCompletionProcessor();
+			}
+
+			public IAutoEditStrategy[] getAutoEditStrategies(
+					ISourceViewer sourceViewer, String contentType) {
+				return new IAutoEditStrategy[] { new VerilogAutoEditStrategy() };
 			}
 		};
 	}
+
 	public static HdlSourceViewerConfiguration createForVhdl(HdlEditor editor)
 	{
 		return new HdlSourceViewerConfiguration(editor)
