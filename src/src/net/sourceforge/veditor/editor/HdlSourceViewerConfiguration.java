@@ -63,7 +63,7 @@ abstract public class HdlSourceViewerConfiguration extends
 	private static class VerilogAutoEditStrategy implements IAutoEditStrategy {
 		public void customizeDocumentCommand(IDocument doc, DocumentCommand com) {
 			try {
-				if (com.text.equals("\n")) {
+				if (com.text.equals("\n") || com.text.equals("\r\n")) {
 					int line = doc.getLineOfOffset(com.offset);
 					int ref = doc.getLineOffset(line);
 					StringBuffer str = new StringBuffer();
@@ -90,7 +90,7 @@ abstract public class HdlSourceViewerConfiguration extends
 							done = true;
 						}
 					} while (done == false);
-					com.text = "\n" + str.toString();
+					com.text += str.toString();
 				}
 				if (com.text.equals("/")) {
 					// check closing multi-line comment
