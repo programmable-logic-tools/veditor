@@ -133,6 +133,11 @@ abstract public class HdlDocument extends Document
 	}
 	
 	public VariableStore getVariableStore() {
+		try {
+			refreshOutline();
+		} catch (HdlParserException e) {
+			return null;
+		}
 		return variableStore;
 	}
 
