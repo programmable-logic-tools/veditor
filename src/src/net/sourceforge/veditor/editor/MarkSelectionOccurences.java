@@ -53,7 +53,7 @@ public class MarkSelectionOccurences implements ISelectionChangedListener {
 		if (selection instanceof TextSelection) { 
 			// ToDo: It should consider variable scope and read or write.
 			TextSelection textSelection = (TextSelection)selection;
-			if ((textSelection.getLength() > 1) &&
+			if ((textSelection.getLength() > 0) &&
 					(VerilogPlugin.getPreferenceBoolean( PreferenceStrings.MARK_SELECTION_OCCURENCES ))) { // skip single character selections
 				VariableStore store = fEditor.getHdlDocument().getVariableStore();
 				ArrayList<Integer> findList = new ArrayList<Integer>();
