@@ -61,9 +61,32 @@ abstract public class HdlSourceViewerConfiguration extends
 	
 
 	private static class VerilogAutoEditStrategy implements IAutoEditStrategy {
+
+		private static boolean isSpace(char c) {
+			return (c == '\t' || c == ' ');
+		}
+		
+		private static boolean isCommentClose(IDocument doc, int ref)
+				throws BadLocationException {
+			char c = doc.getChar(ref++);
+			while (c != '\r' && c != '\n') {
+				if (c == '*' && doc.getChar(ref) == '/') {
+					return true;
+				}
+				c = doc.getChar(ref++);
+			}
+			return false;
+		}
+
 		public void customizeDocumentCommand(IDocument doc, DocumentCommand com) {
 			try {
 				if (com.text.equals("\n") || com.text.equals("\r\n")) {
+					int offset = com.offset;
+					while(isSpace(doc.getChar(offset))) {
+						offset++;
+						com.length++;
+					}
+
 					int line = doc.getLineOfOffset(com.offset);
 					int ref = doc.getLineOffset(line);
 					StringBuffer str = new StringBuffer();
@@ -82,8 +105,10 @@ abstract public class HdlSourceViewerConfiguration extends
 							done = true;
 							break;
 						case '*':
-							str.append(c);
-							str.append(' ');
+							if (isCommentClose(doc, ref - 1) == false) {
+								str.append(c);
+								str.append(' ');
+							}
 							done = true;
 							break;
 						default:
