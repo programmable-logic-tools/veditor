@@ -14,8 +14,12 @@ package net.sourceforge.veditor.editor.scanner;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sourceforge.veditor.document.HdlDocument;
 import net.sourceforge.veditor.editor.ColorManager;
 import net.sourceforge.veditor.editor.HdlTextAttribute;
+import net.sourceforge.veditor.editor.scanner.verilog.VerilogWordRule;
+import net.sourceforge.veditor.editor.scanner.vhdl.VhdlWordRule;
+
 import org.eclipse.jface.text.rules.*;
 
 
@@ -81,8 +85,7 @@ public class HdlScanner extends RuleBasedScanner
 			"qsim_12state_vector", "qsim_strength", "mux_bit", "mux_vector", 
 			"reg_bit", "reg_vector", "wor_bit",	"wor_vector"};
 
-	private HdlScanner(ColorManager manager, boolean isVerilog)
-	{
+	private HdlScanner(ColorManager manager, boolean isVerilog) {
 		IToken keyword = new Token(HdlTextAttribute.KEY_WORD
 				.getTextAttribute(manager));
 		IToken directive = new Token(HdlTextAttribute.DIRECTIVE
@@ -94,24 +97,23 @@ public class HdlScanner extends RuleBasedScanner
 		List<IRule> rules = new ArrayList<IRule>();
 
 		WordRule wordRule;
-
-		if (isVerilog)
-		{
-		    wordRule= new WordRule(new net.sourceforge.veditor.editor.scanner.verilog.WordDetector(), other);
+		IWordDetector detector;
+		if (isVerilog) {
+			detector = new net.sourceforge.veditor.editor.scanner.verilog.WordDetector();
+			wordRule = new VerilogWordRule(detector, other, manager);
 			for (int i = 0; i < verilogDirectives.length; i++)
 				wordRule.addWord(verilogDirectives[i], directive);
 			for (int i = 0; i < verilogWords.length; i++)
 				wordRule.addWord(verilogWords[i], keyword);
-		}
-		else
-		{
-		    wordRule= new WordRule(new  net.sourceforge.veditor.editor.scanner.vhdl.WordDetector(), other);
+		} else {
+			detector = new net.sourceforge.veditor.editor.scanner.vhdl.WordDetector();
+			wordRule = new VhdlWordRule(detector, other, manager);
 			for (int i = 0; i < vhdlWords.length; i++)
 				wordRule.addWord(vhdlWords[i], keyword);
 			// it is possible to use upper case in VHDL
 			for (int i = 0; i < vhdlWords.length; i++)
 				wordRule.addWord(vhdlWords[i].toUpperCase(), keyword);
-			
+
 			for (int i = 0; i < vhdlTypes.length; i++)
 				wordRule.addWord(vhdlTypes[i], types);
 			// it is possible to use upper case in VHDL
@@ -124,6 +126,14 @@ public class HdlScanner extends RuleBasedScanner
 		IRule[] result = new IRule[rules.size()];
 		rules.toArray(result);
 		setRules(result);
-	}	
+	}
+	
+	public HdlDocument getHdlDocument() {
+		if (fDocument instanceof HdlDocument) {
+			return (HdlDocument)fDocument;
+		} else {
+			return null;
+		}
+	}
 }
 

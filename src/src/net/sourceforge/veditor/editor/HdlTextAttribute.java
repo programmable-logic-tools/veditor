@@ -32,6 +32,13 @@ public final class HdlTextAttribute
 	public static HdlTextAttribute DIRECTIVE = new HdlTextAttribute();
 	public static HdlTextAttribute TYPES = new HdlTextAttribute();
 	public static HdlTextAttribute AUTOTASKS = new HdlTextAttribute();
+	public static HdlTextAttribute INPUT = new HdlTextAttribute();
+	public static HdlTextAttribute OUTPUT = new HdlTextAttribute();
+	public static HdlTextAttribute INOUT = new HdlTextAttribute();
+	public static HdlTextAttribute REG = new HdlTextAttribute();
+	public static HdlTextAttribute SIGNAL = new HdlTextAttribute();
+	public static HdlTextAttribute CONSTANT = new HdlTextAttribute();
+	public static HdlTextAttribute LOCALPARAM = new HdlTextAttribute();
 
 	private RGB color;
 	private int style;
@@ -57,7 +64,14 @@ public final class HdlTextAttribute
 		readColor(DIRECTIVE, PreferenceStrings.DIRECTIVE);
 		readColor(KEY_WORD, PreferenceStrings.KEYWORD);
 		readColor(TYPES, PreferenceStrings.TYPES);
-		readColor(AUTOTASKS, PreferenceStrings.AUTO_TASKS);		
+		readColor(AUTOTASKS, PreferenceStrings.AUTO_TASKS);
+		readColor(INPUT, PreferenceStrings.INPUT);
+		readColor(OUTPUT, PreferenceStrings.OUTPUT);
+		readColor(INOUT, PreferenceStrings.INOUT);
+		readColor(REG, PreferenceStrings.REG);
+		readColor(SIGNAL, PreferenceStrings.SIGNAL);
+		readColor(CONSTANT, PreferenceStrings.CONSTANT);
+		readColor(LOCALPARAM, PreferenceStrings.LOCALPARAM);
 	}
 
 	private static void readColor(HdlTextAttribute target, String key)

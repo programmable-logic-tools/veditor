@@ -10,6 +10,8 @@
  *******************************************************************************/
 package net.sourceforge.veditor.document;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import net.sourceforge.veditor.VerilogPlugin;
@@ -39,6 +41,7 @@ abstract public class HdlDocument extends Document
 	private IFile m_File;	
 	private boolean m_NeedToRefresh;
 	private VariableStore variableStore;
+	private List<IOutlineListener> outlineListeners = new ArrayList<IOutlineListener>();
 
 	public HdlDocument(IProject project, IFile file)
 	{
@@ -329,6 +332,24 @@ abstract public class HdlDocument extends Document
 		}
 		
 		return results;
+	}
+	
+	/**
+	 * add outline changed listener
+	 * @param listener
+	 * @note This is used for update signal database when open or save file.
+	 */
+	public void addOutlineListener(IOutlineListener listener) {
+		outlineListeners.add(listener);
+	}
+	
+	/**
+	 * called when outline changed
+	 */
+	public void fireOutlineChanged() {
+		for(IOutlineListener listener : outlineListeners) {
+			listener.outlineChanged();
+		}
 	}
 	
 	abstract public HdlPartitionScanner createPartitionScanner();

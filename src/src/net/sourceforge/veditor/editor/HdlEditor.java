@@ -352,6 +352,8 @@ abstract public class HdlEditor extends TextEditor
 		try
 		{
 			outlineContainer=doc.getOutlineContainer();
+			doc.fireOutlineChanged();
+
 			//update the folding structure
 			updateFoldingStructure(outlineContainer.getCollapsibleRegions());
 		}

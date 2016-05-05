@@ -91,7 +91,15 @@ public class ColorPreferencePage extends AbstractPreferencePage
 			new TextAttribute("String", "String"),
 			new TextAttribute("Directive", "Directive"),
 			new TextAttribute("Types", "Types"),
-			new TextAttribute("AutoTasks", "Auto Tasks (FIXME,TODO,etc)")};
+			new TextAttribute("Input", "Input port"),
+			new TextAttribute("Output", "Output port"),
+			new TextAttribute("Inout", "Inout port"),
+			new TextAttribute("Signal", "Wire(Verilog) or Signal(VHDL)"),
+			new TextAttribute("Constant", "Parameter(Verilog) or Constant(VHDL)"),
+			new TextAttribute("Reg", "Verilog register"),
+			new TextAttribute("Localparam", "Verilog localparam"),
+			new TextAttribute("AutoTasks", "Auto Tasks (FIXME,TODO,etc)")
+	};
 
     protected Control createContents(Composite parent)
 	{

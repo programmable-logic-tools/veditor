@@ -139,10 +139,12 @@ abstract public class HdlSourceViewerConfiguration extends
 			public HdlCompletionProcessor createCompletionProcessor() {
 				return new VerilogCompletionProcessor();
 			}
-
 			public IAutoEditStrategy[] getAutoEditStrategies(
 					ISourceViewer sourceViewer, String contentType) {
 				return new IAutoEditStrategy[] { new VerilogAutoEditStrategy() };
+			}
+			public boolean isVerilog() {
+				return true;
 			}
 		};
 	}
@@ -169,6 +171,10 @@ abstract public class HdlSourceViewerConfiguration extends
 
 	abstract HdlScanner createScanner();
 	abstract HdlCompletionProcessor createCompletionProcessor();
+
+	public boolean isVerilog() {
+		return false;
+	}
 
 	public ColorManager getColorManager()
 	{
@@ -265,7 +271,7 @@ abstract public class HdlSourceViewerConfiguration extends
 	public ITextHover getTextHover(ISourceViewer sourceViewer,
 			String contentType)
 	{
-		return new TextHover();
+		return new TextHover(isVerilog());
 	}
 
 	private static class AnnotationHover implements IAnnotationHover
@@ -306,6 +312,11 @@ abstract public class HdlSourceViewerConfiguration extends
 	}
 	private static class TextHover implements ITextHover
 	{
+		private boolean isVerilog;
+
+		public TextHover(boolean isVerilog) {
+			this.isVerilog = isVerilog;
+		}
 		public IRegion getHoverRegion(ITextViewer textViewer, int offset)
 		{
 			String text = textViewer.getDocument().get();
@@ -351,7 +362,13 @@ abstract public class HdlSourceViewerConfiguration extends
 
 		private boolean isWordCharacter(char ch)
 		{
-			return Character.isJavaIdentifierPart(ch);
+			if (Character.isJavaIdentifierPart(ch)) {
+				return true;
+			}
+			if (isVerilog && ch == '.') {
+				return true;
+			}
+			return false;
 		}
 		
 		private String getVariableHover(String text, HdlDocument doc, int offset)

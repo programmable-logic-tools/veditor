@@ -12,7 +12,7 @@ public class WordDetector implements IWordDetector{
     }
 
     public boolean isWordStart(char character) {
-        if (character == '`')
+        if (character == '`' || character == '.')
             return true;
         return Character.isJavaIdentifierStart(character);
     }    

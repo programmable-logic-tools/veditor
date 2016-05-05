@@ -43,14 +43,21 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer impleme
 		IPreferenceStore preferences = VerilogPlugin.getStore();
 	
 		setDefaultAttr(preferences, PreferenceStrings.DOXGEN_COMMENT, "64,64,128");
-		setDefaultAttr(preferences, PreferenceStrings.SINGLE_LINE_COMMENT, "00,128,128");
-		setDefaultAttr(preferences, PreferenceStrings.MULTI_LINE_COMMENT, "00,128,128");
-		setDefaultAttr(preferences, PreferenceStrings.STRING, "00,00,128");
-		setDefaultAttr(preferences, PreferenceStrings.DEFAULT, "00,00,00");
-		setDefaultAttr(preferences, PreferenceStrings.KEYWORD, "127,00,85", true);
-		setDefaultAttr(preferences, PreferenceStrings.DIRECTIVE, "127,00,85", true);
+		setDefaultAttr(preferences, PreferenceStrings.SINGLE_LINE_COMMENT, "0,128,128");
+		setDefaultAttr(preferences, PreferenceStrings.MULTI_LINE_COMMENT, "0,128,128");
+		setDefaultAttr(preferences, PreferenceStrings.STRING, "0,0,128");
+		setDefaultAttr(preferences, PreferenceStrings.DEFAULT, "0,0,0");
+		setDefaultAttr(preferences, PreferenceStrings.KEYWORD, "127,0,85", true);
+		setDefaultAttr(preferences, PreferenceStrings.DIRECTIVE, "127,0,85", true);
 		setDefaultAttr(preferences, PreferenceStrings.TYPES, "64,64,255");
-		setDefaultAttr(preferences, PreferenceStrings.AUTO_TASKS, "127,159,191",true,true);
+		setDefaultAttr(preferences, PreferenceStrings.AUTO_TASKS, "127,159,191", true, true);
+		setDefaultAttr(preferences, PreferenceStrings.INPUT, "0,0,192");
+		setDefaultAttr(preferences, PreferenceStrings.OUTPUT, "0,0,192");
+		setDefaultAttr(preferences, PreferenceStrings.INOUT, "0,0,192");
+		setDefaultAttr(preferences, PreferenceStrings.SIGNAL, "0,0,0");
+		setDefaultAttr(preferences, PreferenceStrings.CONSTANT, "0,0,192", false, true);
+		setDefaultAttr(preferences, PreferenceStrings.REG, "0,80,50");
+		setDefaultAttr(preferences, PreferenceStrings.LOCALPARAM, "0,0,192", false, true);
 
 		preferences.setDefault(PreferenceStrings.MODULE_PARAMETERS, false);
 		preferences.setDefault(PreferenceStrings.ENABLE_SCAN_PROJECT, true);

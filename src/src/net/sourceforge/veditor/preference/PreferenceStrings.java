@@ -75,6 +75,13 @@ public interface PreferenceStrings {
    public static final String DIRECTIVE = "Directive";
    public static final String TYPES = "Types";
    public static final String AUTO_TASKS = "AutoTasks";
+   public static final String INPUT = "Input";
+   public static final String OUTPUT = "Output";
+   public static final String INOUT = "Inout";
+   public static final String SIGNAL = "Signal";
+   public static final String REG = "Reg";
+   public static final String CONSTANT = "Constant";
+   public static final String LOCALPARAM = "Localparam";
    
    public static final String MODULE_PARAMETERS= "ContentAssist.ModuleParameter";
    public static final String ENABLE_SCAN_PROJECT= "ScanProject.Enable";
