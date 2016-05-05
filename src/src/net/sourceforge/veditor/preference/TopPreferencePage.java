@@ -38,23 +38,23 @@ public class TopPreferencePage extends AbstractSimplePreferencePage
 		addBooleanField(PreferenceStrings.CONTENT_ASSIST_MODULE_PARAM,
 				"Generate module parameter with instantiation(Verilog-2001)");
 		addBooleanField(PreferenceStrings.SCAN_ENABLE, "Enable Scan Project");
-		addStringField(PreferenceStrings.MAX_PARSE_TIME,"Max amount time spent scanning files (mS)");
-		addStringField(PreferenceStrings.MAX_PARSE_LINES,"Maximum number of lines in a file to scan");
+		addStringField(PreferenceStrings.MAX_PARSE_TIME, "Max amount time spent scanning files (mS)");
+		addStringField(PreferenceStrings.MAX_PARSE_LINES, "Maximum number of lines in a file to scan");
 		addBooleanField(PreferenceStrings.SORT_OUTLINE, "Sort in Outline/Hierarchy");
 		addBooleanField(PreferenceStrings.FILTER_SINGALS_IN_OUTLINE, "Filter Signals in Outline");
 		addBooleanField(PreferenceStrings.FILTER_PORTS_IN_OUTLINE, "Filter Ports in Outline");
-		addBooleanField(PreferenceStrings.MARK_SELECTION_OCCURENCES,"Mark occurences of the selected text");
-		addBooleanField(PreferenceStrings.SAVE_BEFORE_COMPILE,"Save File Before Compile");
+		addBooleanField(PreferenceStrings.MARK_SELECTION_OCCURENCES, "Mark occurences of the selected text");
+		addBooleanField(PreferenceStrings.VERILOG_AMS, "Enable Verilog-AMS keyword");
+		addBooleanField(PreferenceStrings.SAVE_BEFORE_COMPILE, "Save File Before Compile");
 		
 		//mg
 //		addStringField(PreferenceStrings.COMPILE_COMMAND, "Compile command");
 //		addStringField(PreferenceStrings.SYNTH_COMMAND, "Synthesize command");
 //		addStringField(PreferenceStrings.COMPILE_FOLDER, "Compile folder");
-		addCommandField( PreferenceStrings.COMPILE_COMMAND, "Compile command" );
-		addCommandField( PreferenceStrings.SYNTH_COMMAND, "Synthesize command" );
-		addCommandField( PreferenceStrings.COMPILE_FOLDER, "Compile folder" );
+		addCommandField(PreferenceStrings.COMPILE_COMMAND, "Compile command");
+		addCommandField(PreferenceStrings.SYNTH_COMMAND, "Synthesize command");
+		addCommandField(PreferenceStrings.COMPILE_FOLDER, "Compile folder");
 		//mg-----------------------
-
 	}
 
 	//mg

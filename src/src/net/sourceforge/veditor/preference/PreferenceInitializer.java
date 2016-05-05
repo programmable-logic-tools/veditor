@@ -41,7 +41,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer impleme
 	{	
 		//IEclipsePreferences preferences = ConfigurationScope.INSTANCE.getNode(VerilogPlugin.ID);
 		IPreferenceStore preferences = VerilogPlugin.getStore();
-	
+
 		setDefaultAttr(preferences, PreferenceStrings.DOXGEN_COMMENT, "64,64,128");
 		setDefaultAttr(preferences, PreferenceStrings.SINGLE_LINE_COMMENT, "0,128,128");
 		setDefaultAttr(preferences, PreferenceStrings.MULTI_LINE_COMMENT, "0,128,128");
@@ -66,16 +66,17 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer impleme
 		preferences.setDefault(PreferenceStrings.SORT_OUTLINE, false);
 		preferences.setDefault(PreferenceStrings.FILTER_SINGALS_IN_OUTLINE, false);
 		preferences.setDefault(PreferenceStrings.FILTER_PORTS_IN_OUTLINE, false);
-		
-		preferences.setDefault(PreferenceStrings.SAVE_BEFORE_COMPILE,true);
-		preferences.setDefault(PreferenceStrings.MARK_SELECTION_OCCURENCES,true);
+
+		preferences.setDefault(PreferenceStrings.SAVE_BEFORE_COMPILE, true);
+		preferences.setDefault(PreferenceStrings.MARK_SELECTION_OCCURENCES, true);
+		preferences.setDefault(PreferenceStrings.VERILOG_AMS, false);
 		preferences.setDefault(PreferenceStrings.COMPILE_COMMAND, "vcom %p%f");
 		preferences.setDefault(PreferenceStrings.SYNTH_COMMAND, "vcom -check_synthesis %p%f");
 		preferences.setDefault(PreferenceStrings.COMPILE_FOLDER, "simulation");
-		
+
 		preferences.setDefault(PreferenceStrings.ERROR_PARSER, "1\n");
-		
-		preferences.setDefault(PreferenceStrings.INDENT_TYPE,PreferenceStrings.INDENT_SPACE);
+
+		preferences.setDefault(PreferenceStrings.INDENT_TYPE, PreferenceStrings.INDENT_SPACE);
 		preferences.setDefault(PreferenceStrings.INDENT_SIZE, PreferenceStrings.INDENT_SIZE_4);
 		preferences.setDefault(PreferenceStrings.NO_SPACE_IN_BRACKET, true);
 		preferences.setDefault(PreferenceStrings.PAD_OPERATORS, true);

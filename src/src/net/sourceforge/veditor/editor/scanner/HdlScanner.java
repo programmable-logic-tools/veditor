@@ -14,11 +14,13 @@ package net.sourceforge.veditor.editor.scanner;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sourceforge.veditor.VerilogPlugin;
 import net.sourceforge.veditor.document.HdlDocument;
 import net.sourceforge.veditor.editor.ColorManager;
 import net.sourceforge.veditor.editor.HdlTextAttribute;
 import net.sourceforge.veditor.editor.scanner.verilog.VerilogWordRule;
 import net.sourceforge.veditor.editor.scanner.vhdl.VhdlWordRule;
+import net.sourceforge.veditor.preference.PreferenceStrings;
 
 import org.eclipse.jface.text.rules.*;
 
@@ -54,11 +56,18 @@ public class HdlScanner extends RuleBasedScanner
 			"task", "time", "tran", "tranif0", "tranif1", "tri", "tri0",
 			"tri1", "triand", "trior", "trireg", "unsigned", "vectored",
 			"wait", "wand", "weak0", "weak1", "while", "wire", "wor", "xnor",
-			"xor",
-			"generate", "endgenerate", "genvar", "localparam"};
+			"xor", "generate", "endgenerate", "genvar", "localparam"};
 
 	private static final String[] verilogDirectives = { "`ifdef", "`else",
 			"`endif", "`if", "`define", "`undef", "`timescale", "`include" };
+	
+	private static final String[] verilogAmsWords = { "abs", "absdelay", "acos", "acosh", "ac_stim", "analog",
+			"analysis", "asin", "asinh", "atan", "atan2", "atanh", "branch", "ceil", "connectrules", "cos", "cosh",
+			"cross", "ddt", "discipline", "driver_update", "enddiscipline", "endconnectrules", "endnature", "exclude",
+			"exp", "final_step", "flicker_noise", "floor", "flow", "from", "ground", "hypot", "idt", "idtmod", "inf",
+			"initial_step", "laplace_nd", "laplace_np", "laplace_zd", "laplace_zp", "last_crossing", "limexp", "ln",
+			"log", "max", "min", "nature", "net_resolution", "noise_table", "potential", "pow", "sin", "sinh", "slew",
+			"sqrt", "tan", "tanh", "timer", "transition", "wreal", "zi_nd", "zi_np", "zi_zd", "zi_zp" };
 
 	public static final String[] vhdlWords = { "abs", "access", "across", "after",
 			"alias", "all", "and", "architecture", "array", "assert",
@@ -105,6 +114,10 @@ public class HdlScanner extends RuleBasedScanner
 				wordRule.addWord(verilogDirectives[i], directive);
 			for (int i = 0; i < verilogWords.length; i++)
 				wordRule.addWord(verilogWords[i], keyword);
+			if (VerilogPlugin.getPreferenceBoolean(PreferenceStrings.VERILOG_AMS)) {
+				for (int i = 0; i < verilogAmsWords.length; i++)
+					wordRule.addWord(verilogAmsWords[i], keyword);
+			}
 		} else {
 			detector = new net.sourceforge.veditor.editor.scanner.vhdl.WordDetector();
 			wordRule = new VhdlWordRule(detector, other, manager);
